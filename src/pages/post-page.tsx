@@ -7,9 +7,20 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   const [url, setUrl] = createSignal<string>("");
 
+  // 動画URLをidに変換する
+  const urlToId = (url: string): string => {
+    const urlObj = new URL(url);
+    const searchParams = urlObj.searchParams;
+    const id = searchParams.get("v");
+    if (!id) {
+      return url;
+    }
+    return id;
+  };
+
   const addMovieHandler = async (): Promise<void> => {
     try {
-      const data = { url: url() };
+      const data = { url: urlToId(url()) };
       const res = await fetch(
         `https://joren-playlist-backend.deno.dev/api/v1/room/${roomId}/add`,
         {
