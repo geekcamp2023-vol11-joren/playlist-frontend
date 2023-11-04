@@ -7,7 +7,7 @@ import {
   onMount,
 } from "solid-js";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
-import { QRCode } from "../components/QRCode/index.tsx";
+import { QrCode } from "../components/QRCode/index.tsx";
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   if (!roomId) {
@@ -16,7 +16,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const [playlist, setPlaylist] = createSignal<string[]>([], { equals: false });
   const [index, setIndex] = createSignal(-1);
   const [increment, setIncrement] = createSignal(0);
-  
+
   const [socket] = createSignal(
     new WebSocket(`wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`)
   );
@@ -28,7 +28,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     if (data.type === "playlist") {
       console.log(data.data, index());
       setPlaylist([...data.data]);
-      if (data.data.length <= index()){
+      if (data.data.length <= index()) {
         _setIndex(0);
       } else if (data.data.length === 0) {
         _setIndex(-1);
@@ -52,18 +52,25 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     return {
       url: playlist()[index()],
       index: index(),
-      increment: increment()
-    }
-  },[index(),increment()])
-  const onVideoEnd = ()=> {
-    console.log("test")
-    setIndex((pv)=>(pv+1)%playlist().length);
-    setIncrement((pv)=>pv+1);
-  }
-  return (<div>
-    {index() >= 0 && (
-      <YouTubePlayer _index={index()} _increment={increment()} url={url().url} onEnd={onVideoEnd} />
-    )}
-    <QRCode />
-  </div>);
+      increment: increment(),
+    };
+  }, [index(), increment()]);
+  const onVideoEnd = () => {
+    console.log("test");
+    setIndex((pv) => (pv + 1) % playlist().length);
+    setIncrement((pv) => pv + 1);
+  };
+  return (
+    <div>
+      {index() >= 0 && (
+        <YouTubePlayer
+          _index={index()}
+          _increment={increment()}
+          url={url().url}
+          onEnd={onVideoEnd}
+        />
+      )}
+      <QrCode roomId={roomId} />
+    </div>
+  );
 };
