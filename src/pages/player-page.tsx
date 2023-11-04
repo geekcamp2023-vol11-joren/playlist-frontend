@@ -8,19 +8,23 @@ import {
 } from "solid-js";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
-import {Playlist} from "../components/playlist/playlist.tsx";
-import {TPlaylist} from "../@types/playlist";
+import { Playlist } from "../components/playlist/playlist.tsx";
+import { TPlaylist } from "../@types/playlist";
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   if (!roomId) {
     throw new Error("roomId is not found");
   }
-  const [playlist, setPlaylist] = createSignal<TPlaylist>([], { equals: false });
+  const [playlist, setPlaylist] = createSignal<TPlaylist>([], {
+    equals: false,
+  });
   const [index, setIndex] = createSignal(-1);
   const [increment, setIncrement] = createSignal(0);
 
   const [socket] = createSignal(
-    new WebSocket(`wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`)
+    new WebSocket(
+      `wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`,
+    ),
   );
   const _setIndex = (val: number) => setIndex(val);
 
@@ -72,7 +76,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
           onEnd={onVideoEnd}
         />
       )}
-      <Playlist playlist={playlist()} currentIndex={index()}/>
+      <Playlist playlist={playlist()} currentIndex={index()} />
       <QrCode roomId={roomId} />
     </div>
   );

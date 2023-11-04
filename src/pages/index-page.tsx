@@ -5,7 +5,7 @@ export const IndexPage = () => {
       "https://joren-playlist-backend.deno.dev/api/v1/create",
       {
         method: "POST",
-      }
+      },
     );
     const { roomId } = await res.json();
     // TODO: 作成した部屋に遷移する

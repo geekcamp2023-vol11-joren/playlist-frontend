@@ -8,13 +8,16 @@ export const PostPage = () => {
   const addMovieHandler = async () => {
     try {
       const data = { url: url() };
-      const res = await fetch(`https://joren-playlist-backend.deno.dev/api/v1/room/${roomId}/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // データはJSON形式で送信
+      const res = await fetch(
+        `https://joren-playlist-backend.deno.dev/api/v1/room/${roomId}/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // データはJSON形式で送信
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       if (!res.ok) {
         throw new Error(`HTTPエラーコード: ${res.status}`);

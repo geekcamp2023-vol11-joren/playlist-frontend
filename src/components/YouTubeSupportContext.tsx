@@ -1,8 +1,17 @@
-import { createContext, useContext, JSX, Component,onMount, onCleanup} from "solid-js";
+import {
+  createContext,
+  useContext,
+  JSX,
+  Component,
+  onMount,
+  onCleanup,
+} from "solid-js";
 
 const YouTubeSupportContext = createContext<[Promise<void>]>();
 
-const  YouTubeContextProvider:Component<{children:JSX.Element}> = (props) => {
+const YouTubeContextProvider: Component<{ children: JSX.Element }> = (
+  props,
+) => {
   onMount(() => {
     if (document.getElementById("__yt_script")) return;
     const tag = document.createElement("script");
@@ -11,10 +20,10 @@ const  YouTubeContextProvider:Component<{children:JSX.Element}> = (props) => {
     const firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
   });
-  onCleanup(()=>{
+  onCleanup(() => {
     document.getElementById("__yt_script")?.remove();
-  })
-  const promise = new Promise<void>((resolve)=> {
+  });
+  const promise = new Promise<void>((resolve) => {
     window.onYouTubeIframeAPIReady = () => {
       resolve();
     };
@@ -24,8 +33,10 @@ const  YouTubeContextProvider:Component<{children:JSX.Element}> = (props) => {
       {props.children}
     </YouTubeSupportContext.Provider>
   );
+};
+
+export function useYouTubeSupportInited() {
+  return useContext(YouTubeSupportContext);
 }
 
-export function useYouTubeSupportInited() { return useContext(YouTubeSupportContext); }
-
-export {YouTubeSupportContext, YouTubeContextProvider}
+export { YouTubeSupportContext, YouTubeContextProvider };
