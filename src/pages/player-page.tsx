@@ -1,27 +1,34 @@
-import {Component, createSignal, onCleanup, onMount} from "solid-js";
+import {Component, createEffect, createMemo, createSignal, onCleanup, onMount} from "solid-js";
 import {YouTubePlayer} from "../components/YouTubePlayer.tsx";
 
-export const PlayerPage:Component<{path?:RegExpMatchArray}> = ({path}) => {
-  const roomId = path?.groups?.roomId;
+export const PlayerPage:Component<{path?:RegExpMatchArray}> = (params) => {
+  const roomId = params.path?.groups?.roomId;
   if (!roomId) {
     throw new Error("roomId is not found");
   }
-  const [playlist,setPlaylist] = createSignal<string[]>([]);
+  const [playlist,setPlaylist] = createSignal<string[]>([],{equals:false});
   const [index, setIndex] = createSignal(-1);
   const [socket,] = createSignal(new WebSocket(`wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`));
+  const _setIndex = (val:number) => setIndex(val);
+  
   const onMessage = (e:MessageEvent)=>{
     const data = JSON.parse(e.data);
+    console.log(data)
     if (data.type === "playlist") {
-      setPlaylist(data.data);
+      console.log(data.data,index())
+      setPlaylist([...data.data]);
       if (data.data.length > index()){
-        setIndex(0);
+        _setIndex(0);
       }else if(data.data.length === 0){
-        setIndex(-1);
+        _setIndex(-1);
       }else if (index() < 0 && data.data.length > 0){
-        setIndex(0);
+        _setIndex(0);
       }
     }
   }
+  createEffect(()=>{
+    console.log(playlist(),index(),index() >= 0)
+  })
   console.log(playlist(),index(),index() >= 0)
   onMount(()=>{
     socket().addEventListener("message",onMessage)
@@ -30,9 +37,14 @@ export const PlayerPage:Component<{path?:RegExpMatchArray}> = ({path}) => {
     socket().removeEventListener("message",onMessage)
     socket().close()
   })
-  if (index() < 0) return <></>;
+  const url = createMemo(()=>{
+    return  {
+      url: playlist()[index()],
+      index: index()
+    }
+  },index())
   return <div>
-    {index() >= 0 && <YouTubePlayer url={playlist()[index()]} onEnd={()=> {
+    {index() >= 0 && <YouTubePlayer _index={index()} url={url().url} onEnd={()=> {
       setIndex((pv)=>(pv+1)%playlist().length);
     }}/>}
   </div>;

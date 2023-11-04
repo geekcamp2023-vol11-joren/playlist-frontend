@@ -4,9 +4,11 @@ import {Component, createEffect, onCleanup, onMount} from "solid-js";
 type Props = {
   url: string;
   className?: string;
+  _index: number;
   onEnd: () => void;
 }
 const YouTubePlayer: Component<Props> = (props) => {
+  console.log("index",props._index);
   let wrapperRef: HTMLDivElement;
   let player: Window.YT.Player;
   const [isYouTubeReady] = useYouTubeSupportInited()??[()=>false];
