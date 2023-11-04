@@ -7,9 +7,9 @@ import { PostPage } from "./pages/post-page.tsx";
 function App() {
   return (
     <>
-      <Route path="/" component={IndexPage} />
-      <Route path={/\/post\/[0-9a-fA-F-]{36}\//} component={PostPage} />
-      <Route path={/\/player\/[0-9a-fA-F-]{36}\//} component={PlayerPage} />
+      <Route path={/^\/?$/} component={IndexPage} />
+      <Route path={/^\/post\/[0-9a-fA-F-]{36}\/$/} component={PostPage} />
+      <Route path={/^\/player\/[0-9a-fA-F-]{36}\/$/} component={PlayerPage} />
     </>
   );
 }
