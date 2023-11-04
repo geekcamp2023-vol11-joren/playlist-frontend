@@ -1,0 +1,51 @@
+.wrapper {
+  height: 100%;
+  position: relative;
+  overflow-y: hidden;
+  .container {
+    height: 100%;
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    overflow-y: hidden;
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 4px 0;
+      &.active {
+        background: var(--background-secondary);
+      }
+      .index {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 30px;
+        text-align: center;
+      }
+      .image {
+        width: 120px;
+      }
+      .text {
+        padding-left: 16px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+      }
+    }
+  }
+  .gradient {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background: linear-gradient(
+      0deg,
+      var(--background-primary) 0%,
+      var(--background-primary) 30%,
+      transparent 100%
+    );
+  }
+}

@@ -7,3 +7,11 @@
   list-style: none;
   outline: none;
 }
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: var(--text-body);
+}

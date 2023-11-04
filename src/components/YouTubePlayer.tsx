@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 import { createEffect, onCleanup, onMount } from "solid-js";
 
+import Styles from "./YouTubePlayer.module.scss";
 import { useYouTubeSupportInited } from "./YouTubeSupportContext.tsx";
 
 type Props = {
@@ -18,14 +19,18 @@ const YouTubePlayer: Component<Props> = (props) => {
     if (!wrapperRef) return;
     const tag = document.createElement("div");
     tag.id = `__yt_player`;
+    tag.className = Styles.iframe;
     wrapperRef.append(tag);
   });
   createEffect(async () => {
+    console.log(props._index, props._increment, props.url, player);
     if (player) {
+      console.log("load", props.url);
       player.loadVideoById(props.url);
       return;
     }
     await isYouTubeReady;
+    console.log("create player", props.url);
     player = new window.YT.Player("__yt_player", {
       videoId: props.url,
       playerVars: { autoplay: 1, fs: 0, modestbranding: 1 },
@@ -37,7 +42,7 @@ const YouTubePlayer: Component<Props> = (props) => {
         },
       },
     }) as YT.Player;
-  }, [props.url, props._index, props._increment]);
+  });
   onCleanup(() => {
     player?.destroy();
   });

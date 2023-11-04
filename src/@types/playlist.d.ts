@@ -6,6 +6,11 @@ export type TMovieItem = {
       id: string;
       name: string;
     };
+    thumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
   };
 };
 

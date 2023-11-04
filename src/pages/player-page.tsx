@@ -6,6 +6,7 @@ import type { TMovieItem, TPlaylist } from "../@types/playlist";
 import { Playlist } from "../components/playlist/playlist.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
+import Styles from "./player-page.module.scss";
 
 type MemoItem = {
   item: TMovieItem;
@@ -22,7 +23,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     equals: false,
   });
   const [index, setIndex] = createSignal(-1);
-  const [increment, setIncrement] = createSignal(0);
+  const [increment, setIncrement] = createSignal(-1);
 
   const [socket] = createSignal(
     new WebSocket(
@@ -43,6 +44,9 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         _setIndex(0);
       }
     }
+    if (increment() < 0) {
+      setIncrement(0);
+    }
   };
   onMount(() => {
     socket().addEventListener("message", onMessage);
@@ -53,6 +57,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   });
   const url = createMemo<MemoItem>(
     () => {
+      console.log(index(), increment());
       return {
         item: playlist()[index()],
         index: index(),
@@ -64,24 +69,34 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       index: index(),
       increment: increment(),
     },
-    { equals: (pv: MemoItem, nv: MemoItem) => pv.index === nv.index },
+    { equals: (pv: MemoItem, nv: MemoItem) => pv.increment === nv.increment },
   );
   const onVideoEnd = (): void => {
+    console.log("onVideoEnd");
     setIndex((pv) => (pv + 1) % playlist().length);
     setIncrement((pv) => pv + 1);
   };
   return (
-    <div>
-      {index() >= 0 && (
-        <YouTubePlayer
-          _index={index()}
-          _increment={increment()}
-          url={url().item.url}
-          onEnd={onVideoEnd}
+    <div class={Styles.wrapper}>
+      <div class={Styles.main}>
+        {url().item?.url && (
+          <YouTubePlayer
+            _index={index()}
+            _increment={increment()}
+            url={url().item?.url}
+            onEnd={onVideoEnd}
+            className={Styles.player}
+          />
+        )}
+      </div>
+      <div class={Styles.aside}>
+        <Playlist
+          playlist={playlist()}
+          currentIndex={index()}
+          className={Styles.playlist}
         />
-      )}
-      <Playlist playlist={playlist()} currentIndex={index()} />
-      <QrCode roomId={roomId} />
+        <QrCode roomId={roomId} />
+      </div>
     </div>
   );
 };

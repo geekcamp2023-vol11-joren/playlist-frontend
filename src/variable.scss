@@ -1,0 +1,86 @@
+:root {
+  --text-body: #1a1a1c;
+  --text-description: #626264;
+  --text-placeholder: #757578;
+  --text-on-fill: #ffffff;
+  --text-link: #0017c1;
+  --text-hover: #000082;
+  --text-active: #000082;
+  --text-visited: #000082;
+  --text-alert: #ec0000;
+  --text-disabled: #949497;
+
+  --icon-label: #1a1a1c;
+  --icon-active: #0017c1;
+  --icon-alert: #ec0000;
+  --icon-disabled: #949497;
+
+  --button-normal: #0017c1;
+  --button-hover: #000082;
+  --button-active: #000082;
+  --button-disabled: #949497;
+
+  --primitive: #1a1a1c;
+
+  --background-primary: #ffffff;
+  --background-secondary: #f1f1f4;
+  --background-tertiary: #f8f8fb;
+
+  --border-field: #1a1a1c;
+  --border-divider: #d8d8db;
+  --border-focused: #cd820a;
+  --border-selected: #0017c1;
+  --border-alert: #ec0000;
+  --border-disabled: #949497;
+
+  --status-success: #259d63;
+  --status-alert: #ec0000;
+  --status-warning: #c16800;
+
+  --chart-primary: #0017c1;
+  --chart-secondary: #4979f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-body: #ffffff;
+    --text-description: #b4b4b7;
+    --text-placeholder: #949497;
+    --text-on-fill: #ffffff;
+    --text-link: #7096f8;
+    --text-hover: #9db7f9;
+    --text-active: #9db7f9;
+    --text-visited: #9db7f9;
+    --text-alert: #ff4b36;
+    --text-disabled: #757578;
+
+    --icon-label: #ffffff;
+    --icon-active: #7096f8;
+    --icon-alert: #ff4b36;
+    --icon-disabled: #757578;
+
+    --button-normal: #7096f8;
+    --button-hover: #4979f5;
+    --button-active: #4979f5;
+    --button-disabled: #949497;
+
+    --primitive: #ffffff;
+    --background-primary: #1a1a1c;
+    --background-secondary: #626264;
+    --background-tertiary: #414143;
+
+    --border-field: #ffffff;
+    --border-divider: #626264;
+    --border-focused: #cd820a;
+    --border-selected: #7096f8;
+    --border-alert: #ff4b36;
+    --border-disabled: #949497;
+
+    --status-success: #259d63;
+    --status-alert: #ff4b36;
+    --status-warning: #d18d0f;
+
+    --chart-primary: #c5d7fb;
+    --chart-secondary: #9db7f9;
+  }
+}
