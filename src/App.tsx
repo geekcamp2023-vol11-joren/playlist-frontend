@@ -9,7 +9,7 @@ function App() {
     <>
       <Route path={/^\/?$/} component={IndexPage} />
       <Route path={/^\/post\/[0-9a-fA-F-]{36}\/$/} component={PostPage} />
-      <Route path={/^\/player\/[0-9a-fA-F-]{36}\/$/} component={PlayerPage} />
+      <Route path={/^\/player\/(?<roomId>[0-9a-fA-F-]{36})\/$/} component={PlayerPage} />
     </>
   );
 }
