@@ -14,7 +14,7 @@ const Playlist: Component<Props> = (props) => {
         return (
           <div>
             <span>{i}</span>
-            <span>{JSON.stringify(v)}</span>
+            <span>{v.metadata.title}</span>
           </div>
         );
       })}

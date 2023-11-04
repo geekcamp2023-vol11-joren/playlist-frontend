@@ -1,8 +1,12 @@
-import type { VideoInfo } from "youtubei.js/dist/src/parser/youtube";
-
 export type TMovieItem = {
   url: string;
-  metadata: VideoInfo["basic_info"];
+  metadata: {
+    title: string;
+    channel: {
+      id: string;
+      name: string;
+    };
+  };
 };
 
 export type TPlaylist = TMovieItem[];
