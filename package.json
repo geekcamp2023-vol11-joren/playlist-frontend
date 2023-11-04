@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/qrcode": "^1.5.4",
     "qrcode": "^1.5.3",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.7.8"
   },
   "devDependencies": {

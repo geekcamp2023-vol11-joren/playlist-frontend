@@ -11,6 +11,9 @@ dependencies:
   qrcode:
     specifier: ^1.5.3
     version: 1.5.3
+  solid-icons:
+    specifier: ^1.1.0
+    version: 1.1.0(solid-js@1.8.5)
   solid-js:
     specifier: ^1.7.8
     version: 1.8.5
@@ -992,6 +995,14 @@ packages:
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
+    dev: false
+
+  /solid-icons@1.1.0(solid-js@1.8.5):
+    resolution: {integrity: sha512-IesTfr/F1ElVwH2E1110s2RPXH4pujKfSs+koT8rwuTAdleO5s26lNSpqJV7D1+QHooJj18mcOiz2PIKs0ic+A==}
+    peerDependencies:
+      solid-js: '*'
+    dependencies:
+      solid-js: 1.8.5
     dev: false
 
   /solid-js@1.8.5:

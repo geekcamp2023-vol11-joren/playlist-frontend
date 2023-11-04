@@ -1,5 +1,6 @@
 import { onMount } from "solid-js";
 import QRCode from "qrcode";
+import { CopyLink } from "./copyLink";
 
 type Props = {
   roomId: string;
@@ -30,7 +31,7 @@ export const QrCode = ({ roomId }: Props) => {
   return (
     <div>
       <canvas ref={canvasRef} width="128" height="128"></canvas>
-      <p>{postPageUrl}</p>
+      <CopyLink url={postPageUrl} />
     </div>
   );
 };
