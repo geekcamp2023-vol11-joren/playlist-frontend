@@ -17,7 +17,7 @@ export const PlayerPage:Component<{path?:RegExpMatchArray}> = (params) => {
     if (data.type === "playlist") {
       console.log(data.data,index())
       setPlaylist([...data.data]);
-      if (data.data.length > index()){
+      if (data.data.length <= index()){
         _setIndex(0);
       }else if(data.data.length === 0){
         _setIndex(-1);
