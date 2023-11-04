@@ -1,6 +1,8 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
+import Styles from "./post-page.module.scss";
+
 export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   const [url, setUrl] = createSignal<string>("");
@@ -32,15 +34,24 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     }
   };
   return (
-    <div>
-      <h1>動画投稿</h1>
-      <input
-        type="text"
-        name="url"
-        value={url()}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <button onClick={() => void addMovieHandler()}>投稿</button>
+    <div class={Styles.wrapper}>
+      <div class={Styles.main}>
+        <h1>動画投稿</h1>
+        <input
+          type="text"
+          name="url"
+          placeholder="動画のURLを入力してください"
+          value={url()}
+          onChange={(e) => setUrl(e.target.value)}
+          class={Styles.input}
+        />
+        <button
+          class={Styles.inputButton}
+          onClick={() => void addMovieHandler()}
+        >
+          投稿
+        </button>
+      </div>
     </div>
   );
 };
