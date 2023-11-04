@@ -8,12 +8,14 @@ import {
 } from "solid-js";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
+import {Playlist} from "../components/playlist/playlist.tsx";
+import {TPlaylist} from "../@types/playlist";
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   if (!roomId) {
     throw new Error("roomId is not found");
   }
-  const [playlist, setPlaylist] = createSignal<string[]>([], { equals: false });
+  const [playlist, setPlaylist] = createSignal<TPlaylist>([], { equals: false });
   const [index, setIndex] = createSignal(-1);
   const [increment, setIncrement] = createSignal(0);
 
@@ -50,7 +52,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   });
   const url = createMemo(() => {
     return {
-      url: playlist()[index()],
+      item: playlist()[index()],
       index: index(),
       increment: increment(),
     };
@@ -66,10 +68,11 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         <YouTubePlayer
           _index={index()}
           _increment={increment()}
-          url={url().url}
+          url={url().item.url}
           onEnd={onVideoEnd}
         />
       )}
+      <Playlist playlist={playlist()} currentIndex={index()}/>
       <QrCode roomId={roomId} />
     </div>
   );
