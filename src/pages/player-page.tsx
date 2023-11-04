@@ -34,7 +34,6 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const onMessage = (e: MessageEvent<string>): void => {
     const data = JSON.parse(e.data) as TAPIRespoonse;
     if (data.type === "playlist") {
-      console.log(data.data, index());
       setPlaylist([...data.data]);
       if (data.data.length <= index()) {
         _setIndex(0);
@@ -68,7 +67,6 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     { equals: (pv: MemoItem, nv: MemoItem) => pv.index === nv.index },
   );
   const onVideoEnd = (): void => {
-    console.log("test");
     setIndex((pv) => (pv + 1) % playlist().length);
     setIncrement((pv) => pv + 1);
   };

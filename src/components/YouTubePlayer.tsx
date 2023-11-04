@@ -21,7 +21,6 @@ const YouTubePlayer: Component<Props> = (props) => {
     wrapperRef.append(tag);
   });
   createEffect(async () => {
-    console.log("index", props._index, props._increment);
     if (player) {
       player.loadVideoById(props.url);
       return;
@@ -32,12 +31,9 @@ const YouTubePlayer: Component<Props> = (props) => {
       playerVars: { autoplay: 1, fs: 0, modestbranding: 1 },
       events: {
         onStateChange: (e) => {
-          console.log(e.data);
           if (e.data === 0) {
-            console.log("end");
             props.onEnd();
           }
-          //0 - ended
         },
       },
     }) as YT.Player;
