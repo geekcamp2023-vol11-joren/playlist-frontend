@@ -9,7 +9,7 @@ type Props = {
 }
 const YouTubePlayer: Component<Props> = (props) => {
   let wrapperRef: HTMLDivElement|undefined = undefined;
-  let player: Window.YT.Player|undefined = undefined;
+  let player: YT.Player|undefined = undefined;
   const [isYouTubeReady] = useYouTubeSupportInited()!;
   onMount(()=>{
     if (!wrapperRef) return;
@@ -23,7 +23,6 @@ const YouTubePlayer: Component<Props> = (props) => {
       player.loadVideoById(props.url);
       return;
     }
-    player?.destroy();
     await isYouTubeReady;
     player = new window.YT.Player("__yt_player", {
       videoId: props.url,
@@ -41,7 +40,7 @@ const YouTubePlayer: Component<Props> = (props) => {
     });
   },props.url);
   onCleanup(()=>{
-    player.destroy();
+    player?.destroy()
   })
   return <div class={props.className} ref={wrapperRef} id={"terst"} />;
 }
