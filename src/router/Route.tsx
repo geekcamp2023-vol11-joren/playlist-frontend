@@ -7,7 +7,7 @@ type Props = {
 
 const Route: Component<Props> = ({path,component}) => {
   return (<>
-    {window.location.pathname.startsWith(path) && component}
+    {path === window.location.pathname && component}
   </>)
 }
 
