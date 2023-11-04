@@ -6,9 +6,9 @@ import { useYouTubeSupportInited } from "./YouTubeSupportContext.tsx";
 type Props = {
   url: string;
   className?: string;
-  _index: number;
-  _increment: number;
-  onEnd: () => void;
+  _index?: number;
+  _increment?: number;
+  onEnd?: () => void;
 };
 const YouTubePlayer: Component<Props> = (props) => {
   let wrapperRef: HTMLDivElement | undefined = undefined;
@@ -32,7 +32,7 @@ const YouTubePlayer: Component<Props> = (props) => {
       events: {
         onStateChange: (e) => {
           if (e.data === 0) {
-            props.onEnd();
+            props.onEnd?.();
           }
         },
       },
