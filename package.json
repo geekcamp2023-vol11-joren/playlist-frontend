@@ -16,8 +16,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@types/qrcode": "^1.5.4",
-    "qrcode": "^1.5.3",
+    "qrcode-svg": "^1.1.0",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.5"
   },
@@ -33,7 +32,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "qrcode-svg": "^1.1.0",
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
