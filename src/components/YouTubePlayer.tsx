@@ -8,19 +8,23 @@ type Props = {
   onEnd: () => void;
 }
 const YouTubePlayer: Component<Props> = (props) => {
-  console.log("index",props._index);
-  let wrapperRef: HTMLDivElement;
-  let player: Window.YT.Player;
-  const [isYouTubeReady] = useYouTubeSupportInited()??[()=>false];
-  if (!isYouTubeReady()) return <></>;
+  let wrapperRef: HTMLDivElement|undefined = undefined;
+  let player: Window.YT.Player|undefined = undefined;
+  const [isYouTubeReady] = useYouTubeSupportInited()!;
   onMount(()=>{
     if (!wrapperRef) return;
     const tag = document.createElement("div");
     tag.id = `__yt_player`;
     wrapperRef.append(tag);
   })
-  createEffect(()=>{
+  createEffect(async()=>{
+    console.log("index",props._index);
+    if (player){
+      player.loadVideoById(props.url);
+      return;
+    }
     player?.destroy();
+    await isYouTubeReady;
     player = new window.YT.Player("__yt_player", {
       videoId: props.url,
       playerVars: {autoplay:1,fs:0,modestbranding:1},

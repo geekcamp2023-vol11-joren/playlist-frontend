@@ -43,9 +43,11 @@ export const PlayerPage:Component<{path?:RegExpMatchArray}> = (params) => {
       index: index()
     }
   },index())
+  const onVideoEnd = ()=> {
+    console.log("test")
+    setIndex((pv)=>(pv+1)%playlist().length);
+  }
   return <div>
-    {index() >= 0 && <YouTubePlayer _index={index()} url={url().url} onEnd={()=> {
-      setIndex((pv)=>(pv+1)%playlist().length);
-    }}/>}
+    {index() >= 0 && <YouTubePlayer _index={index()} url={url().url} onEnd={onVideoEnd}/>}
   </div>;
 };
