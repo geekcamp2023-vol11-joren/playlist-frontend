@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 40px;
+  padding-right: 20px;
+  justify-content: space-between;
+  flex: 1;
+  .link {
+    word-break: normal;
+    line-break: normal;
+    .block {
+      display: inline-block;
+    }
+  }
+  .button {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--button-normal);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

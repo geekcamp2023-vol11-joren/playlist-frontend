@@ -88,6 +88,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
             className={Styles.player}
           />
         )}
+        <QrCode roomId={roomId} />
       </div>
       <div class={Styles.aside}>
         <Playlist
@@ -95,7 +96,6 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
           currentIndex={index()}
           className={Styles.playlist}
         />
-        <QrCode roomId={roomId} />
       </div>
     </div>
   );

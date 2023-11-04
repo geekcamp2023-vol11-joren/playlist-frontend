@@ -1,8 +1,8 @@
-import QRCode from "qrcode";
+import QRCode from "qrcode-svg";
 import type { Component } from "solid-js";
-import { onMount } from "solid-js";
 
 import { CopyLink } from "./copyLink";
+import Styles from "./qrcode.module.scss";
 
 type Props = {
   roomId: string;
@@ -11,29 +11,22 @@ type Props = {
 export const QrCode: Component<Props> = ({ roomId }) => {
   const endPoint = location.host;
   const postPageUrl = `${endPoint}/#/post/${roomId}/`;
-  let canvasRef: HTMLCanvasElement | undefined = undefined;
-
-  // QRコードを生成してキャンバスに描画する関数
-  const generateQRCode = (postPageUrl: string): void => {
-    if (canvasRef) {
-      QRCode.toCanvas(canvasRef, postPageUrl, (error) => {
-        if (error) {
-          console.error("QR Code generation error:", error);
-        }
-      });
-    }
-  };
-
-  // コンポーネントが初期化されたときにQRコードを生成
-  onMount(() => {
-    if (!canvasRef) return;
-    generateQRCode(postPageUrl);
-  });
 
   return (
-    <div>
-      <canvas ref={canvasRef} width="128" height="128"></canvas>
-      <CopyLink url={postPageUrl} />
+    <div class={Styles.wrapper}>
+      <div
+        class={Styles.qrcode}
+        innerHTML={new QRCode({
+          content: postPageUrl,
+          padding: 4,
+          width: 256,
+          height: 256,
+          color: "var(--text-body)",
+          background: "var(--background-primary)",
+          ecl: "M",
+        }).svg()}
+      ></div>
+      <CopyLink className={Styles.link} roomId={roomId} />
     </div>
   );
 };

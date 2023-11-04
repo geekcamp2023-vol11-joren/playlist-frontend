@@ -12,7 +12,7 @@ type Props = {
 
 const Playlist: Component<Props> = (props) => {
   let wrapper: HTMLDivElement | undefined = undefined;
-  const listLength = props.playlist.length;
+  const listLength = createMemo(() => props.playlist.length);
   const playlist = createMemo(() => {
     const values: TPlaylist = [];
     for (let i = 0; i < 30; i++) {
@@ -22,13 +22,13 @@ const Playlist: Component<Props> = (props) => {
   });
   createEffect(() => {
     const el = document.getElementById(
-      `playlist__${props.currentIndex + listLength}`,
+      `playlist__${props.currentIndex + listLength()}`,
     );
     if (!el || !wrapper) return;
     wrapper.scrollTop = el.offsetTop - el.clientHeight;
   });
   const isActive = (input: number): boolean =>
-    input === props.currentIndex + listLength;
+    input === props.currentIndex + listLength();
   return (
     <div class={`${props.className} ${Styles.wrapper}`}>
       <div class={Styles.container} ref={wrapper}>
@@ -39,7 +39,7 @@ const Playlist: Component<Props> = (props) => {
               id={`playlist__${i()}`}
             >
               <span class={Styles.index}>
-                {isActive(i()) ? "▶" : (i() % listLength) + 1}
+                {isActive(i()) ? "▶" : (i() % listLength()) + 1}
               </span>
               <img
                 src={v.metadata.thumbnail[0].url}
@@ -51,7 +51,6 @@ const Playlist: Component<Props> = (props) => {
           )}
         </For>
       </div>
-      <div class={Styles.gradient}></div>
     </div>
   );
 };
