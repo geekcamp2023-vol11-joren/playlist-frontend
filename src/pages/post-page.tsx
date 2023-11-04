@@ -8,7 +8,7 @@ export const PostPage = () => {
   const addMovieHandler = async () => {
     try {
       const data = { url: url() };
-      const res = await fetch(`/api/v1/room/${roomId}/add`, {
+      const res = await fetch(`https://joren-playlist-backend.deno.dev/api/v1/room/${roomId}/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // データはJSON形式で送信
