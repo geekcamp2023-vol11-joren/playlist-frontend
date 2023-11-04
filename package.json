@@ -6,18 +6,35 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-types": "npx tsc --noEmit --jsx react-jsx",
+    "eslint": "eslint ./**/*.ts*",
+    "eslint:fix": "eslint ./**/*.ts* --fix",
+    "format": "prettier --write \"src/**/*.{tsx,ts,js,json,css,scss}\"",
+    "lint": "npm run eslint&&npm run check-types",
+    "lint:fix": "npm run format&&npm run eslint:fix&&npm run check-types",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/qrcode": "^1.5.4",
     "qrcode": "^1.5.3",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.7.8"
+    "solid-js": "^1.8.5"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "@types/youtube": "^0.0.49",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-solid": "^2.7.0"
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.12",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-solid": "^2.7.2",
+    "youtubei.js": "^7.0.0"
   }
 }
