@@ -7,7 +7,7 @@ function App() {
     <>
       <Route path={/\/player\/[0-9a-fA-F-]{36}\//} component={PlayerPage} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
