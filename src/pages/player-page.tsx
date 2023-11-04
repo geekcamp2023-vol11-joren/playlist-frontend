@@ -15,6 +15,8 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   }
   const [playlist, setPlaylist] = createSignal<string[]>([], { equals: false });
   const [index, setIndex] = createSignal(-1);
+  const [increment, setIncrement] = createSignal(0);
+  
   const [socket] = createSignal(
     new WebSocket(`wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`)
   );
@@ -50,18 +52,18 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     return {
       url: playlist()[index()],
       index: index(),
-    };
-  }, index());
-  const onVideoEnd = () => {
-    console.log("test");
-    setIndex((pv) => (pv + 1) % playlist().length);
-  };
-  return (
-    <div>
-      {index() >= 0 && (
-        <YouTubePlayer _index={index()} url={url().url} onEnd={onVideoEnd} />
-      )}
-      <QRCode />
-    </div>
-  );
+      increment: increment()
+    }
+  },[index(),increment()])
+  const onVideoEnd = ()=> {
+    console.log("test")
+    setIndex((pv)=>(pv+1)%playlist().length);
+    setIncrement((pv)=>pv+1);
+  }
+  return (<div>
+    {index() >= 0 && (
+      <YouTubePlayer _index={index()} _increment={increment()} url={url().url} onEnd={onVideoEnd} />
+    )}
+    <QRCode />
+  </div>);
 };

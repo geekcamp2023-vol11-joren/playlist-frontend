@@ -5,6 +5,7 @@ type Props = {
   url: string;
   className?: string;
   _index: number;
+  _increment: number;
   onEnd: () => void;
 }
 const YouTubePlayer: Component<Props> = (props) => {
@@ -18,7 +19,7 @@ const YouTubePlayer: Component<Props> = (props) => {
     wrapperRef.append(tag);
   })
   createEffect(async()=>{
-    console.log("index",props._index);
+    console.log("index",props._index,props._increment);
     if (player){
       player.loadVideoById(props.url);
       return;
@@ -38,7 +39,7 @@ const YouTubePlayer: Component<Props> = (props) => {
         },
       },
     });
-  },props.url);
+  },[props.url,props._index,props._increment]);
   onCleanup(()=>{
     player?.destroy()
   })
