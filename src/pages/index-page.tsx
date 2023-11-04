@@ -1,5 +1,8 @@
 import type { Component } from "solid-js";
 
+import { Discription } from "../components/Discription";
+import Styles from "./index-page.module.scss";
+
 export const IndexPage: Component = () => {
   const createRoomHandler = async (): Promise<void> => {
     // TODO: 部屋作成APIを叩く(/api/roomsはapiが分かり次第変更する)
@@ -14,9 +17,21 @@ export const IndexPage: Component = () => {
     window.location.hash = `/player/${roomId}/`;
   };
   return (
-    <div>
-      <h1>部屋作成</h1>
-      <button onClick={() => void createRoomHandler()}>作成</button>
+    <div class={Styles.wrapper}>
+      <div class={Styles.discription}>
+        <Discription />
+      </div>
+      <div class={Styles.createRoom}>
+        <p>
+          部屋を作成してYoutubeの動画を共有しながら一つの画面で見ることができます。
+        </p>
+        <button
+          class={Styles.createRoomButton}
+          onClick={() => void createRoomHandler()}
+        >
+          部屋作成
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: var(--background-primary);
+  .discription {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: var(--background-secondary);
+  }
+  .createRoom {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    height: 100%;
+    background: var(--background-secondary);
+    .createRoomButton {
+      margin-top: 20px;
+      padding: 1rem 2rem;
+      background: var(--background-tertiary);
+      border-radius: 5px;
+      border: 1px solid var(--background-tertiary);
+      color: var(--text-primary);
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        color: var(--background-tertiary);
+        background: var(--text-hover);
+        border: 1px solid var(--background-tertiary);
+      }
+    }
+  }
+}
