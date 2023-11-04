@@ -1,6 +1,3 @@
-const PlayerPage = () => {
-  return <div>
-test
-  </div>;
-}
-export {PlayerPage};
+export const PlayerPage = () => {
+  return <div>test</div>;
+};
