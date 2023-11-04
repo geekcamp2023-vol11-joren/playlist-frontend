@@ -1,17 +1,18 @@
 import type { Component } from "solid-js";
-import {
-  createEffect,
-  createMemo,
-  createSignal,
-  onCleanup,
-  onMount,
-} from "solid-js";
+import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
 import type { TAPIRespoonse } from "../@types/api";
-import type { TPlaylist } from "../@types/playlist";
+import type { TMovieItem, TPlaylist } from "../@types/playlist";
 import { Playlist } from "../components/playlist/playlist.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
+
+type MemoItem = {
+  item: TMovieItem;
+  index: number;
+  increment: number;
+};
+
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   if (!roomId) {
@@ -44,10 +45,6 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       }
     }
   };
-  createEffect(() => {
-    console.log(playlist(), index(), index() >= 0);
-  });
-  console.log(playlist(), index(), index() >= 0);
   onMount(() => {
     socket().addEventListener("message", onMessage);
   });
@@ -55,13 +52,21 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     socket().removeEventListener("message", onMessage);
     socket().close();
   });
-  const url = createMemo(() => {
-    return {
+  const url = createMemo<MemoItem>(
+    () => {
+      return {
+        item: playlist()[index()],
+        index: index(),
+        increment: increment(),
+      };
+    },
+    {
       item: playlist()[index()],
       index: index(),
       increment: increment(),
-    };
-  }, [index(), increment()]);
+    },
+    { equals: (pv: MemoItem, nv: MemoItem) => pv.index === nv.index },
+  );
   const onVideoEnd = (): void => {
     console.log("test");
     setIndex((pv) => (pv + 1) % playlist().length);
