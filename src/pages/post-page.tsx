@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 
-export const Post = () => {
+export const PostPage = () => {
   const [url, setUrl] = createSignal<string>("");
 
   const roomId = window.location.hash.replace("#", "");
