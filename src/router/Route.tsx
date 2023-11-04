@@ -1,5 +1,5 @@
 import type {Component} from "solid-js";
-import {createEffect, createSignal} from "solid-js";
+import {createSignal, onCleanup, onMount} from "solid-js";
 
 type Props = {
   path: string|RegExp;
@@ -8,12 +8,12 @@ type Props = {
 
 const Route: Component<Props> = ({path,component}) => {
   const [hash,setHash] = createSignal(window.location.hash.substring(1));
-  createEffect(()=>{
-    const handler = ()=>setHash(window.location.hash.substring(1));
+  const handler = ()=>setHash(window.location.hash.substring(1));
+  onMount(()=>{
     window.addEventListener("hashchange",handler);
-    return ()=>{
-      window.removeEventListener("hashchange",handler);
-    }
+  })
+  onCleanup(()=>{
+    window.removeEventListener("hashchange",handler);
   })
 
   return (<>
