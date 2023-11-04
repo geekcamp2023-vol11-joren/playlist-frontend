@@ -1,11 +1,14 @@
 import "./App.css";
-import { Route } from "./router/Route.tsx";
-import { PlayerPage } from "./pages/player-page.tsx";
-import { IndexPage } from "./pages/index-page.tsx";
-import { PostPage } from "./pages/post-page.tsx";
-import { YouTubeContextProvider } from "./components/YouTubeSupportContext.tsx";
 
-function App() {
+import type { Component } from "solid-js";
+
+import { YouTubeContextProvider } from "./components/YouTubeSupportContext.tsx";
+import { IndexPage } from "./pages/index-page.tsx";
+import { PlayerPage } from "./pages/player-page.tsx";
+import { PostPage } from "./pages/post-page.tsx";
+import { Route } from "./router/Route.tsx";
+
+const App: Component = () => {
   return (
     <YouTubeContextProvider>
       <Route path={/^\/?$/} component={IndexPage} />
@@ -16,6 +19,6 @@ function App() {
       />
     </YouTubeContextProvider>
   );
-}
+};
 
 export default App;

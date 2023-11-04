@@ -1,15 +1,17 @@
+import type { Component } from "solid-js";
 import {
-  Component,
   createEffect,
   createMemo,
   createSignal,
   onCleanup,
   onMount,
 } from "solid-js";
-import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
-import { QrCode } from "../components/QRCode/index.tsx";
+
+import type { TAPIRespoonse } from "../@types/api";
+import type { TPlaylist } from "../@types/playlist";
 import { Playlist } from "../components/playlist/playlist.tsx";
-import { TPlaylist } from "../@types/playlist";
+import { QrCode } from "../components/QRCode/index.tsx";
+import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   if (!roomId) {
@@ -26,11 +28,10 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       `wss://joren-playlist-backend.deno.dev/ws/v1/room/${roomId}/`,
     ),
   );
-  const _setIndex = (val: number) => setIndex(val);
+  const _setIndex = (val: number): number => setIndex(val);
 
-  const onMessage = (e: MessageEvent) => {
-    const data = JSON.parse(e.data);
-    console.log(data);
+  const onMessage = (e: MessageEvent<string>): void => {
+    const data = JSON.parse(e.data) as TAPIRespoonse;
     if (data.type === "playlist") {
       console.log(data.data, index());
       setPlaylist([...data.data]);
@@ -61,7 +62,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       increment: increment(),
     };
   }, [index(), increment()]);
-  const onVideoEnd = () => {
+  const onVideoEnd = (): void => {
     console.log("test");
     setIndex((pv) => (pv + 1) % playlist().length);
     setIncrement((pv) => pv + 1);

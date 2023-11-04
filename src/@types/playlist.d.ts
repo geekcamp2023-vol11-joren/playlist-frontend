@@ -1,4 +1,4 @@
-import { VideoInfo } from "youtubei.js/dist/src/parser/youtube";
+import type { VideoInfo } from "youtubei.js/dist/src/parser/youtube";
 
 export type TMovieItem = {
   url: string;

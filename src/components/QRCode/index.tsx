@@ -1,18 +1,20 @@
-import { onMount } from "solid-js";
 import QRCode from "qrcode";
+import type { Component } from "solid-js";
+import { onMount } from "solid-js";
+
 import { CopyLink } from "./copyLink";
 
 type Props = {
   roomId: string;
 };
 
-export const QrCode = ({ roomId }: Props) => {
+export const QrCode: Component<Props> = ({ roomId }) => {
   const endPoint = location.host;
   const postPageUrl = `${endPoint}/#/post/${roomId}/`;
   let canvasRef: HTMLCanvasElement | undefined = undefined;
 
   // QRコードを生成してキャンバスに描画する関数
-  const generateQRCode = (postPageUrl: string) => {
+  const generateQRCode = (postPageUrl: string): void => {
     if (canvasRef) {
       QRCode.toCanvas(canvasRef, postPageUrl, (error) => {
         if (error) {

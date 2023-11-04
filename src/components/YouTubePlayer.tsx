@@ -1,5 +1,7 @@
+import type { Component } from "solid-js";
+import { createEffect, onCleanup, onMount } from "solid-js";
+
 import { useYouTubeSupportInited } from "./YouTubeSupportContext.tsx";
-import { Component, createEffect, onCleanup, onMount } from "solid-js";
 
 type Props = {
   url: string;
@@ -38,7 +40,7 @@ const YouTubePlayer: Component<Props> = (props) => {
           //0 - ended
         },
       },
-    });
+    }) as YT.Player;
   }, [props.url, props._index, props._increment]);
   onCleanup(() => {
     player?.destroy();

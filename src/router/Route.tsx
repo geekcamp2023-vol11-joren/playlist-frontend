@@ -8,7 +8,7 @@ type Props = {
 
 const Route: Component<Props> = ({ path, component: Component }) => {
   const [hash, setHash] = createSignal(window.location.hash.substring(1));
-  const handler = () => {
+  const handler = (): void => {
     setHash(window.location.hash.substring(1));
   };
   onMount(() => {

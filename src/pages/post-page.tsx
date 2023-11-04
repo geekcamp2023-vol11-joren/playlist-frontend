@@ -1,11 +1,12 @@
+import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
-export const PostPage = () => {
+export const PostPage: Component = () => {
   const [url, setUrl] = createSignal<string>("");
 
   const roomId = window.location.hash.replace("#", "");
 
-  const addMovieHandler = async () => {
+  const addMovieHandler = async (): Promise<void> => {
     try {
       const data = { url: url() };
       const res = await fetch(
@@ -40,7 +41,7 @@ export const PostPage = () => {
         value={url()}
         onChange={(e) => setUrl(e.target.value)}
       />
-      <button onClick={() => addMovieHandler()}>投稿</button>
+      <button onClick={() => void addMovieHandler()}>投稿</button>
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import { TPlaylist } from "../../@types/playlist";
-import { Component } from "solid-js";
+import type { Component } from "solid-js";
+
+import type { TPlaylist } from "../../@types/playlist";
 
 type Props = {
   playlist: TPlaylist;
@@ -13,7 +14,7 @@ const Playlist: Component<Props> = (props) => {
         return (
           <div>
             <span>{i}</span>
-            <span>{v.metadata.title}</span>
+            <span>{JSON.stringify(v)}</span>
           </div>
         );
       })}

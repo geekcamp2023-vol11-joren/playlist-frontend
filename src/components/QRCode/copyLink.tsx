@@ -1,16 +1,17 @@
 import { AiOutlineCopy } from "solid-icons/ai";
+import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
 type Props = {
   url: string;
 };
 
-export const CopyLink = ({ url }: Props) => {
+export const CopyLink: Component<Props> = ({ url }) => {
   const [isCopied, setIsCopied] = createSignal<boolean>(false);
 
-  const copyHandler = () => {
+  const copyHandler = (): void => {
     setIsCopied(true);
-    navigator.clipboard.writeText(url);
+    void navigator.clipboard.writeText(url);
     setTimeout(() => {
       setIsCopied(false);
     }, 1000);

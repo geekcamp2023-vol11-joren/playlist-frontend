@@ -1,11 +1,5 @@
-import {
-  createContext,
-  useContext,
-  JSX,
-  Component,
-  onMount,
-  onCleanup,
-} from "solid-js";
+import type { Component, JSX } from "solid-js";
+import { createContext, onCleanup, onMount, useContext } from "solid-js";
 
 const YouTubeSupportContext = createContext<[Promise<void>]>();
 
@@ -35,8 +29,8 @@ const YouTubeContextProvider: Component<{ children: JSX.Element }> = (
   );
 };
 
-export function useYouTubeSupportInited() {
+export function useYouTubeSupportInited(): Promise<void>[] | undefined {
   return useContext(YouTubeSupportContext);
 }
 
-export { YouTubeSupportContext, YouTubeContextProvider };
+export { YouTubeContextProvider, YouTubeSupportContext };

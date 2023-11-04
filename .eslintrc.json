@@ -22,6 +22,7 @@
     "@typescript-eslint/no-unused-vars": "error",
     "no-unused-vars": "off",
     "no-control-regex": "off",
+    "prefer-const": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "@typescript-eslint/explicit-function-return-type": [
