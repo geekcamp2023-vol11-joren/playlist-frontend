@@ -22,12 +22,15 @@ export const PlayerPage:Component<{path?:RegExpMatchArray}> = ({path}) => {
       }
     }
   }
+  console.log(playlist(),index(),index() >= 0)
   onMount(()=>{
     socket().addEventListener("message",onMessage)
   })
   onCleanup(()=>{
     socket().removeEventListener("message",onMessage)
+    socket().close()
   })
+  if (index() < 0) return <></>;
   return <div>
     {index() >= 0 && <YouTubePlayer url={playlist()[index()]} onEnd={()=> {
       setIndex((pv)=>(pv+1)%playlist().length);
