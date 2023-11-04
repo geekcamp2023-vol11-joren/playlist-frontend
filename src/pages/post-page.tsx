@@ -1,10 +1,9 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
-export const PostPage: Component = () => {
+export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
+  const roomId = params.path?.groups?.roomId;
   const [url, setUrl] = createSignal<string>("");
-
-  const roomId = window.location.hash.replace("#", "");
 
   const addMovieHandler = async (): Promise<void> => {
     try {
