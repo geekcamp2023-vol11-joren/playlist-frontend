@@ -9,7 +9,7 @@ export const IndexPage = () => {
     );
     const { roomId } = await res.json();
     // TODO: 作成した部屋に遷移する
-    window.location.hash = `/player/${roomId}`;
+    window.location.hash = `/player/${roomId}/`;
   };
   return (
     <div>
