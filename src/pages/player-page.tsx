@@ -44,7 +44,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         _setIndex(0);
       }
     }
-    if (increment() < 0) {
+    if (increment() < 0 && playlist()[index()]) {
       setIncrement(0);
     }
   };
@@ -55,9 +55,9 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
     socket().removeEventListener("message", onMessage);
     socket().close();
   });
-  const url = createMemo<MemoItem>(
+  const item = createMemo<MemoItem>(
     () => {
-      console.log(index(), increment());
+      console.log(index(), increment(), playlist()[index()]);
       return {
         item: playlist()[index()],
         index: index(),
@@ -79,15 +79,15 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   return (
     <div class={Styles.wrapper}>
       <div class={Styles.main}>
-        {url().item?.url && (
-          <YouTubePlayer
-            _index={index()}
+        <div class={`${Styles.youtube}`}>
+          <PlayerWrapper
+            url={item()}
             _increment={increment()}
-            url={url().item?.url}
-            onEnd={onVideoEnd}
+            _index={index()}
             className={Styles.player}
+            onEnd={onVideoEnd}
           />
-        )}
+        </div>
         <QrCode roomId={roomId} />
       </div>
       <div class={Styles.aside}>
@@ -98,5 +98,38 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         />
       </div>
     </div>
+  );
+};
+
+type PlayerWrapperProps = {
+  _index: number;
+  _increment: number;
+  url?: MemoItem;
+  onEnd?: () => void;
+  className?: string;
+};
+
+const PlayerWrapper: Component<PlayerWrapperProps> = (props) => {
+  const url = createMemo(
+    () => {
+      console.log(props.url);
+      return props.url?.item?.url;
+    },
+    undefined,
+    { equals: false },
+  );
+  return (
+    <>
+      {!url() && <span>動画を追加してください...</span>}
+      {url() && (
+        <YouTubePlayer
+          _index={props._index}
+          _increment={props._increment}
+          url={url()!}
+          onEnd={props.onEnd}
+          className={props.className}
+        />
+      )}
+    </>
   );
 };

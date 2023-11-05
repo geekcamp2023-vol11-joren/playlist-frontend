@@ -8,8 +8,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    .player {
+    .youtube {
       flex: 1;
+      display: grid;
+      place-items: center;
+      .player {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .aside {
