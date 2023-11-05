@@ -32,15 +32,13 @@ const Playlist: Component<Props> = (props) => {
       `playlist__${props.currentIndex + listLength()}`,
     );
     if (!el || !container) return;
-    console.log("scroll", props.currentIndex);
     if (props.currentIndex === 0) {
-      container.style.scrollBehavior = "unset";
       container.scrollTop = el.offsetTop - el.clientHeight * 2;
       setIndexOffset((pv) => pv + listLength());
     }
-
     container.style.scrollBehavior = "smooth";
     container.scrollTop = el.offsetTop - el.clientHeight;
+    container.style.scrollBehavior = "unset";
   });
   const isActive = (input: number): boolean =>
     input === props.currentIndex + listLength();
