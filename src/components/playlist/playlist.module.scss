@@ -7,15 +7,19 @@
     padding: 16px 0;
     display: flex;
     flex-direction: column;
-    scroll-behavior: smooth;
     overflow-y: hidden;
     .row {
       display: flex;
       flex-direction: row;
       align-items: center;
       padding: 4px 0;
+      height: 80px;
+      flex-shrink: 0;
       &.active {
         background: var(--background-secondary);
+      }
+      &.hide {
+        opacity: 0;
       }
       .index {
         flex-grow: 0;
