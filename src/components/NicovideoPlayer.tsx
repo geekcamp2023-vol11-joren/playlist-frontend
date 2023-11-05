@@ -73,7 +73,7 @@ const NicovideoPlayer: Component<Props> = (props) => {
   return (
     <iframe
       ref={iframe}
-      src={`https://embed.nicovideo.jp/watch/${props.url}?jsapi=1&playerId=1`}
+      src={`https://embed.nicovideo.jp/watch/${props.url}?jsapi=1&playerId=1&__id=${props._increment}`}
       width={1920}
       height={1080}
       class={props.className}
