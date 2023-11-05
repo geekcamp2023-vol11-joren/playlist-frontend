@@ -1,3 +1,5 @@
+import type { TMovieItem } from "./playlist";
+
 export type VideoPlayerMethods = {
   play(): void;
   pause(): void;
@@ -24,3 +26,9 @@ declare global {
     };
   }
 }
+
+export type MemoItem = {
+  item: TMovieItem;
+  index: number;
+  increment: number;
+};

@@ -15,43 +15,56 @@
     width: 80%;
     margin: 0 auto;
     text-align: center;
-    .input {
+    .inputRow {
       width: 100%;
-      margin: 0 auto;
-      background: var(--background-primary);
-      border: 1px solid var(--text-hover);
-      border-radius: 5px;
-      font-size: 20px;
-      line-height: 30px;
-      color: var(--text-primary);
-      padding: 1rem 1rem;
-      transition: all 0.2s ease-in-out;
-      &:hover {
-        color: var(--background-tertiary);
-        background: var(--text-hover);
-      }
-    }
-    .inputButton {
-      font-size: 1.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--background-tertiary);
-      border-radius: 5px;
-      border: 1px solid var(--background-tertiary);
-      color: var(--text-primary);
-      font-weight: 600;
-      transition: all 0.2s ease-in-out;
-      cursor: pointer;
       display: flex;
-      align-items: center;
       flex-direction: row;
-      &:hover {
-        color: var(--background-tertiary);
-        background: var(--text-hover);
-        border: 1px solid var(--background-tertiary);
+      .input {
+        width: 100%;
+        margin: 0 auto;
+        background: var(--background-primary);
+        border: 1px solid var(--text-hover);
+        border-radius: 5px;
+        font-size: 20px;
+        line-height: 30px;
+        color: var(--text-primary);
+        padding: 1rem 1rem;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          color: var(--background-tertiary);
+          background: var(--text-hover);
+        }
       }
-      .loading {
-        width: 20px;
-        height: 20px;
+      .inputButton {
+        width: 150px;
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--background-tertiary);
+        border-radius: 5px;
+        border: 1px solid var(--background-tertiary);
+        color: var(--text-primary);
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        position: relative;
+        &:hover {
+          color: var(--background-tertiary);
+          background: var(--text-hover);
+          border: 1px solid var(--background-tertiary);
+        }
+        .text {
+          text-align: center;
+        }
+        .loading {
+          position: absolute;
+          left: 10px;
+          width: 20px;
+          height: 20px;
+        }
       }
     }
   }

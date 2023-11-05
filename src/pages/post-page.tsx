@@ -3,6 +3,7 @@ import { createSignal } from "solid-js";
 import { TailSpin } from "solid-spinner";
 
 import type { SupportedSites } from "../@types/playlist";
+import { PlayerWrapper } from "../components/VideoPlayer.tsx";
 import Styles from "./post-page.module.scss";
 
 export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
@@ -10,6 +11,9 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const [url, setUrl] = createSignal<string>("");
 
   const [loading, setLoading] = createSignal(false);
+  const [previewUrl, setPreviewUrl] = createSignal<
+    { type: SupportedSites; url: string } | undefined
+  >(undefined);
 
   // 動画URLをidに変換する
   const urlToId = (
@@ -81,26 +85,46 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       setLoading(false);
     }
   };
+
   return (
     <div class={Styles.wrapper}>
       <div class={Styles.main}>
         <h1>動画投稿</h1>
-        <input
-          type="text"
-          name="url"
-          placeholder="動画のURLを入力してください"
-          value={url()}
-          onChange={(e) => setUrl(e.target.value)}
-          class={Styles.input}
-        />
-        <button
-          class={Styles.inputButton}
-          onClick={() => void addMovieHandler()}
-          disabled={loading()}
-        >
-          {loading() && <TailSpin class={Styles.loading} />}
-          投稿
-        </button>
+        <div class={Styles.inputRow}>
+          <input
+            type="text"
+            name="url"
+            placeholder="動画のURLを入力してください"
+            value={url()}
+            onChange={(e) => setUrl(e.target.value)}
+            onBlur={() => setPreviewUrl(urlToId(url()))}
+            class={Styles.input}
+            disabled={loading()}
+          />
+          <button
+            class={Styles.inputButton}
+            onClick={() => void addMovieHandler()}
+            disabled={loading()}
+          >
+            {loading() && <TailSpin class={Styles.loading} />}
+            <span class={Styles.text}>投稿</span>
+          </button>
+        </div>
+        {previewUrl() && (
+          <PlayerWrapper
+            autoPlay={false}
+            _index={0}
+            _increment={0}
+            url={{
+              item: {
+                ...previewUrl()!,
+                metadata: { title: "", channel: "", thumbnail: "" },
+              },
+              increment: 0,
+              index: 0,
+            }}
+          />
+        )}
       </div>
     </div>
   );

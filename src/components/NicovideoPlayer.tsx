@@ -9,6 +9,7 @@ type Props = {
   _index?: number;
   _increment?: number;
   onEnd?: () => void;
+  autoPlay: boolean;
 };
 
 const NicovideoPlayer: Component<Props> = (props) => {
@@ -52,8 +53,9 @@ const NicovideoPlayer: Component<Props> = (props) => {
 
   const nicoApiHandler = (e: MessageEvent<NicoMessage>): void => {
     if (e.origin === "https://embed.nicovideo.jp") {
+      console.log(e);
       if (e.data.eventName === "loadComplete") {
-        controls.play();
+        props.autoPlay && controls.play();
       } else if (e.data.eventName === "statusChange") {
         if (e.data.data.playerStatus === 4) {
           props.onEnd?.();

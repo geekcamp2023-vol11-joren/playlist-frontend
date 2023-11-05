@@ -2,18 +2,12 @@ import type { Component } from "solid-js";
 import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
 import type { TAPIRespoonse } from "../@types/api";
-import type { TMovieItem, TPlaylist } from "../@types/playlist";
-import { NicovideoPlayer } from "../components/NicovideoPlayer.tsx";
+import type { MemoItem } from "../@types/player";
+import type { TPlaylist } from "../@types/playlist";
 import { Playlist } from "../components/playlist/playlist.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
-import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
+import { PlayerWrapper } from "../components/VideoPlayer.tsx";
 import Styles from "./player-page.module.scss";
-
-type MemoItem = {
-  item: TMovieItem;
-  index: number;
-  increment: number;
-};
 
 export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
@@ -100,47 +94,5 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         />
       </div>
     </div>
-  );
-};
-
-type PlayerWrapperProps = {
-  _index: number;
-  _increment: number;
-  url?: MemoItem;
-  onEnd?: () => void;
-  className?: string;
-};
-
-const PlayerWrapper: Component<PlayerWrapperProps> = (props) => {
-  const url = createMemo(
-    () => {
-      console.log(props.url);
-      return props.url?.item?.url;
-    },
-    undefined,
-    { equals: false },
-  );
-  return (
-    <>
-      {!url() && <span>動画を追加してください...</span>}
-      {props.url?.item?.type === "youtube" && (
-        <YouTubePlayer
-          _index={props._index}
-          _increment={props._increment}
-          url={url()!}
-          onEnd={props.onEnd}
-          className={props.className}
-        />
-      )}
-      {props.url?.item?.type === "nicovideo" && (
-        <NicovideoPlayer
-          _index={props._index}
-          _increment={props._increment}
-          url={url()!}
-          onEnd={props.onEnd}
-          className={props.className}
-        />
-      )}
-    </>
   );
 };

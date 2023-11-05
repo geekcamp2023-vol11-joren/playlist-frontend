@@ -10,6 +10,7 @@ type Props = {
   _index?: number;
   _increment?: number;
   onEnd?: () => void;
+  autoPlay: boolean;
 };
 const YouTubePlayer: Component<Props> = (props) => {
   let wrapperRef: HTMLDivElement | undefined = undefined;
@@ -25,7 +26,6 @@ const YouTubePlayer: Component<Props> = (props) => {
   createEffect(async () => {
     console.log(props._index, props._increment, props.url, player);
     if (player) {
-      console.log("load", props.url);
       player.loadVideoById(props.url);
       return;
     }
@@ -33,7 +33,11 @@ const YouTubePlayer: Component<Props> = (props) => {
     console.log("create player", props.url);
     player = new window.YT.Player("__yt_player", {
       videoId: props.url,
-      playerVars: { autoplay: 1, fs: 0, modestbranding: 1 },
+      playerVars: {
+        autoplay: props.autoPlay ? 1 : 0,
+        fs: 0,
+        modestbranding: 1,
+      },
       events: {
         onStateChange: (e) => {
           if (e.data === 0) {
