@@ -29,7 +29,7 @@ export const CopyLink: Component<Props> = (props) => {
       <p class={Styles.link} onClick={() => copyHandler()}>
         {endPoint}/#/post/
         <wbr />
-        <span class={Styles.block}>{props.roomId}</span>
+        <span class={Styles.block}>{props.roomId}/</span>
       </p>
     </div>
   );

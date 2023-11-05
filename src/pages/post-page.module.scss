@@ -11,7 +11,6 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    padding: 2rem;
     width: 80%;
     margin: 0 auto;
     text-align: center;
@@ -65,6 +64,14 @@
           width: 20px;
           height: 20px;
         }
+      }
+    }
+    .playerWrapper {
+      height: 500px;
+      .player {
+        width: min(500px, 80vw);
+        aspect-ratio: 16/9;
+        height: auto;
       }
     }
   }

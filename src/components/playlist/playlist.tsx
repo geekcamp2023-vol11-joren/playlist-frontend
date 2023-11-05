@@ -11,6 +11,8 @@ type Props = {
   className?: string;
 };
 
+const offset = 2;
+
 const Playlist: Component<Props> = (props) => {
   let container: HTMLDivElement | undefined = undefined;
   const listLength = createMemo(() => props.playlist.length);
@@ -18,7 +20,7 @@ const Playlist: Component<Props> = (props) => {
   createEffect(() => {
     console.log(listLength(), indexOffset());
     if (isNaN(indexOffset()) && listLength() > 0)
-      setIndexOffset(listLength() * -2);
+      setIndexOffset(listLength() * -1 * offset);
   });
   const playlist = createMemo(() => {
     const values: TPlaylist = [];
@@ -33,12 +35,12 @@ const Playlist: Component<Props> = (props) => {
     );
     if (!el || !container) return;
     if (props.currentIndex === 0) {
-      container.scrollTop = el.offsetTop - el.clientHeight * 2;
+      container.style.scrollBehavior = "unset";
+      container.scrollTop = el.offsetTop - el.clientHeight * offset;
       setIndexOffset((pv) => pv + listLength());
     }
     container.style.scrollBehavior = "smooth";
     container.scrollTop = el.offsetTop - el.clientHeight;
-    container.style.scrollBehavior = "unset";
   });
   const isActive = (input: number): boolean =>
     input === props.currentIndex + listLength();
@@ -56,7 +58,7 @@ const Playlist: Component<Props> = (props) => {
             return (
               <div
                 class={`${Styles.row} ${isActive(i()) && Styles.active} ${
-                  indexOffset() + i() < 0 && Styles.hide
+                  getIndex(i()) < 1 && Styles.hide
                 }`}
                 id={`playlist__${i()}`}
               >

@@ -53,7 +53,6 @@ const NicovideoPlayer: Component<Props> = (props) => {
 
   const nicoApiHandler = (e: MessageEvent<NicoMessage>): void => {
     if (e.origin === "https://embed.nicovideo.jp") {
-      console.log(e);
       if (e.data.eventName === "loadComplete") {
         props.autoPlay && controls.play();
       } else if (e.data.eventName === "statusChange") {

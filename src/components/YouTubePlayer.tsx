@@ -10,6 +10,7 @@ type Props = {
   _index?: number;
   _increment?: number;
   onEnd?: () => void;
+  muted?: boolean;
   autoPlay: boolean;
 };
 const YouTubePlayer: Component<Props> = (props) => {

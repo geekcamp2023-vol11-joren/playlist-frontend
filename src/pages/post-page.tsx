@@ -83,6 +83,7 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       // エラーメッセージを表示するなど、必要な処理を追加できます
     } finally {
       setLoading(false);
+      setPreviewUrl(undefined);
     }
   };
 
@@ -110,21 +111,24 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
             <span class={Styles.text}>投稿</span>
           </button>
         </div>
-        {previewUrl() && (
-          <PlayerWrapper
-            autoPlay={false}
-            _index={0}
-            _increment={0}
-            url={{
-              item: {
-                ...previewUrl()!,
-                metadata: { title: "", channel: "", thumbnail: "" },
-              },
-              increment: 0,
-              index: 0,
-            }}
-          />
-        )}
+        <div class={Styles.playerWrapper}>
+          {previewUrl() && (
+            <PlayerWrapper
+              autoPlay={false}
+              _index={0}
+              _increment={0}
+              url={{
+                item: {
+                  ...previewUrl()!,
+                  metadata: { title: "", channel: "", thumbnail: "" },
+                },
+                increment: 0,
+                index: 0,
+              }}
+              className={Styles.player}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
