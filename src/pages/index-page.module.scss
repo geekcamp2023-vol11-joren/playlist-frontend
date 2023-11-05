@@ -27,15 +27,14 @@
       padding: 1rem 2rem;
       background: var(--background-tertiary);
       border-radius: 5px;
-      border: 1px solid var(--background-tertiary);
       color: var(--text-primary);
+      font-size: 20px;
       font-weight: 600;
       transition: all 0.2s ease-in-out;
       cursor: pointer;
       &:hover {
         color: var(--background-tertiary);
         background: var(--text-hover);
-        border: 1px solid var(--background-tertiary);
       }
     }
   }
