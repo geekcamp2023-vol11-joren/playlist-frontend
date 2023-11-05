@@ -23,7 +23,7 @@ export const IndexPage: Component = () => {
       </div>
       <div class={Styles.createRoom}>
         <p>
-          部屋を作成してYoutubeの動画を共有しながら一つの画面で見ることができます。
+          部屋を作成して動画配信サイトの動画を共有しながら一つの画面で見ることができます。
         </p>
         <button
           class={Styles.createRoomButton}
