@@ -3,6 +3,7 @@ import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
 import type { TAPIRespoonse } from "../@types/api";
 import type { TMovieItem, TPlaylist } from "../@types/playlist";
+import { NicovideoPlayer } from "../components/NicovideoPlayer.tsx";
 import { Playlist } from "../components/playlist/playlist.tsx";
 import { QrCode } from "../components/QRCode/index.tsx";
 import { YouTubePlayer } from "../components/YouTubePlayer.tsx";
@@ -122,8 +123,17 @@ const PlayerWrapper: Component<PlayerWrapperProps> = (props) => {
   return (
     <>
       {!url() && <span>動画を追加してください...</span>}
-      {url() && (
+      {props.url?.item?.type === "youtube" && (
         <YouTubePlayer
+          _index={props._index}
+          _increment={props._increment}
+          url={url()!}
+          onEnd={props.onEnd}
+          className={props.className}
+        />
+      )}
+      {props.url?.item?.type === "nicovideo" && (
+        <NicovideoPlayer
           _index={props._index}
           _increment={props._increment}
           url={url()!}

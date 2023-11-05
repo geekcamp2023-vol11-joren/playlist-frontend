@@ -63,11 +63,7 @@ const Playlist: Component<Props> = (props) => {
                 <span class={Styles.index}>
                   {isActive(i()) ? "▶" : getIndex(i())}
                 </span>
-                <img
-                  src={v.metadata.thumbnail[0].url}
-                  class={Styles.image}
-                  alt={""}
-                />
+                <img src={v.metadata.thumbnail} class={Styles.image} alt={""} />
                 <span class={Styles.text}>{v.metadata.title}</span>
               </div>
             );

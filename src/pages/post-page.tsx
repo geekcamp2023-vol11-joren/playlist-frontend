@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
+import type { SupportedSites } from "../@types/playlist";
 import Styles from "./post-page.module.scss";
 
 export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
@@ -8,19 +9,49 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const [url, setUrl] = createSignal<string>("");
 
   // 動画URLをidに変換する
-  const urlToId = (url: string): string => {
+  const urlToId = (
+    url: string,
+  ):
+    | {
+        type: SupportedSites;
+        url: string;
+      }
+    | undefined => {
     const urlObj = new URL(url);
-    const searchParams = urlObj.searchParams;
-    const id = searchParams.get("v");
-    if (!id) {
-      return url;
+    if (urlObj.hostname.match(/youtube\.com|youtu\.be/)) {
+      const searchParams = urlObj.searchParams;
+      const id = searchParams.get("v");
+      if (!id) {
+        return {
+          type: "youtube",
+          url: url,
+        };
+      }
+      return {
+        type: "youtube",
+        url: id,
+      };
     }
-    return id;
+    if (urlObj.hostname.match(/nicovideo\.jp/)) {
+      const path = urlObj.pathname;
+      const id = path.split("/").pop();
+      if (!id) {
+        return {
+          type: "nicovideo",
+          url: url,
+        };
+      }
+      return {
+        type: "nicovideo",
+        url: id,
+      };
+    }
   };
 
   const addMovieHandler = async (): Promise<void> => {
     try {
-      const data = { url: urlToId(url()) };
+      const data = urlToId(url());
+      if (!data) return;
       const res = await fetch(
         `https://joren-playlist-backend.deno.dev/api/v1/room/${roomId}/add`,
         {

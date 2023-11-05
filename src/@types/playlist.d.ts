@@ -2,16 +2,12 @@ export type TMovieItem = {
   url: string;
   metadata: {
     title: string;
-    channel: {
-      id: string;
-      name: string;
-    };
-    thumbnail: {
-      url: string;
-      width: number;
-      height: number;
-    }[];
+    channel: string;
+    thumbnail: string;
   };
+  type: SupportedSites;
 };
 
 export type TPlaylist = TMovieItem[];
+
+export type SupportedSites = "youtube" | "nicovideo";
