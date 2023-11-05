@@ -14,6 +14,9 @@ dependencies:
   solid-js:
     specifier: ^1.8.5
     version: 1.8.5
+  solid-spinner:
+    specifier: ^0.2.0
+    version: 0.2.0(solid-js@1.8.5)
 
 devDependencies:
   '@types/qrcode-svg':
@@ -3078,6 +3081,15 @@ packages:
       '@babel/types': 7.23.0
       solid-js: 1.8.5
     dev: true
+
+  /solid-spinner@0.2.0(solid-js@1.8.5):
+    resolution: {integrity: sha512-xLTYFljnvtp8evg9H1Cs4UlIwFelO9HYmRF/bfByhlrcilHJwyQgSus9ICbu8Gt/CUubpT4LsADWxJ9rYg8VHA==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      solid-js: '*'
+    dependencies:
+      solid-js: 1.8.5
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

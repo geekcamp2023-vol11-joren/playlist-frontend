@@ -18,7 +18,8 @@
   "dependencies": {
     "qrcode-svg": "^1.1.0",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.8.5"
+    "solid-js": "^1.8.5",
+    "solid-spinner": "^0.2.0"
   },
   "devDependencies": {
     "@types/qrcode-svg": "^1.1.3",

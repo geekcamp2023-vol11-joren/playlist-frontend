@@ -1,5 +1,6 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
+import { TailSpin } from "solid-spinner";
 
 import type { SupportedSites } from "../@types/playlist";
 import Styles from "./post-page.module.scss";
@@ -7,6 +8,8 @@ import Styles from "./post-page.module.scss";
 export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   const roomId = params.path?.groups?.roomId;
   const [url, setUrl] = createSignal<string>("");
+
+  const [loading, setLoading] = createSignal(false);
 
   // 動画URLをidに変換する
   const urlToId = (
@@ -50,6 +53,7 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
 
   const addMovieHandler = async (): Promise<void> => {
     try {
+      setLoading(true);
       const data = urlToId(url());
       if (!data) return;
       const res = await fetch(
@@ -73,6 +77,8 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       // エラーハンドリング
       console.error("エラーが発生しました:", error);
       // エラーメッセージを表示するなど、必要な処理を追加できます
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -90,7 +96,9 @@ export const PostPage: Component<{ path?: RegExpMatchArray }> = (params) => {
         <button
           class={Styles.inputButton}
           onClick={() => void addMovieHandler()}
+          disabled={loading()}
         >
+          {loading() && <TailSpin class={Styles.loading} />}
           投稿
         </button>
       </div>
