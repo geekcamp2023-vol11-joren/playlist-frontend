@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 
-import { Discription } from "../components/Discription";
+import { Description } from "../components/Description";
 import Styles from "./index-page.module.scss";
 
 export const IndexPage: Component = () => {
@@ -19,7 +19,7 @@ export const IndexPage: Component = () => {
   return (
     <div class={Styles.wrapper}>
       <div class={Styles.discription}>
-        <Discription />
+        <Description />
       </div>
       <div class={Styles.createRoom}>
         <p>
