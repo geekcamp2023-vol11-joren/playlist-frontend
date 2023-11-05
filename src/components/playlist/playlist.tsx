@@ -7,6 +7,7 @@ import Styles from "./playlist.module.scss";
 type Props = {
   playlist: TPlaylist;
   currentIndex: number;
+  increment: number;
   className?: string;
 };
 
@@ -15,6 +16,7 @@ const Playlist: Component<Props> = (props) => {
   const listLength = createMemo(() => props.playlist.length);
   const [indexOffset, setIndexOffset] = createSignal(NaN);
   createEffect(() => {
+    console.log(listLength(), indexOffset());
     if (isNaN(indexOffset()) && listLength() > 0)
       setIndexOffset(listLength() * -2);
   });
@@ -42,6 +44,12 @@ const Playlist: Component<Props> = (props) => {
   });
   const isActive = (input: number): boolean =>
     input === props.currentIndex + listLength();
+  const getIndex = (input: number): number => {
+    if (input < props.currentIndex + listLength()) {
+      return props.increment - (props.currentIndex + listLength() - input) + 1;
+    }
+    return props.increment + input - (props.currentIndex + listLength()) + 1;
+  };
   return (
     <div class={`${props.className} ${Styles.wrapper}`}>
       <div class={Styles.container} ref={container}>
@@ -55,7 +63,7 @@ const Playlist: Component<Props> = (props) => {
                 id={`playlist__${i()}`}
               >
                 <span class={Styles.index}>
-                  {isActive(i()) ? "▶" : indexOffset() + i() + 1}
+                  {isActive(i()) ? "▶" : getIndex(i())}
                 </span>
                 <img
                   src={v.metadata.thumbnail[0].url}

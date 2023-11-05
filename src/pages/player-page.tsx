@@ -93,6 +93,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       <div class={Styles.aside}>
         <Playlist
           playlist={playlist()}
+          increment={increment()}
           currentIndex={index()}
           className={Styles.playlist}
         />
