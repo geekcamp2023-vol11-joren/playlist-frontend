@@ -19,6 +19,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   });
   const [index, setIndex] = createSignal(-1);
   const [increment, setIncrement] = createSignal(-1);
+  const [autoPlay, setAutoPlay] = createSignal(false);
 
   const [socket] = createSignal(
     new WebSocket(
@@ -33,6 +34,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
       setPlaylist([...data.data]);
       if (data.data.length <= index()) {
         _setIndex(0);
+        setAutoPlay(true);
       } else if (data.data.length === 0) {
         _setIndex(-1);
       } else if (index() < 0 && data.data.length > 0) {
@@ -68,6 +70,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
   );
   const onVideoEnd = (): void => {
     console.log("onVideoEnd");
+    setAutoPlay(true);
     setIndex((pv) => (pv + 1) % playlist().length);
     setIncrement((pv) => pv + 1);
   };
@@ -81,6 +84,7 @@ export const PlayerPage: Component<{ path?: RegExpMatchArray }> = (params) => {
             _index={index()}
             className={Styles.player}
             onEnd={onVideoEnd}
+            autoPlay={autoPlay()}
           />
         </div>
         <QrCode roomId={roomId} />
