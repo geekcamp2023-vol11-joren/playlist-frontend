@@ -1,4 +1,3 @@
-import { AiOutlineCopy } from "solid-icons/ai";
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 
@@ -24,14 +23,14 @@ export const CopyLink: Component<Props> = (props) => {
 
   return (
     <div class={`${props.className} ${Styles.wrapper}`}>
-      <p class={Styles.link}>
+      <div class={`${Styles.popup} ${isCopied() && Styles.visible}`}>
+        コピーしました！
+      </div>
+      <p class={Styles.link} onClick={() => copyHandler()}>
         {endPoint}/#/post/
         <wbr />
         <span class={Styles.block}>{props.roomId}</span>
       </p>
-      <button class={Styles.button} onClick={() => copyHandler()}>
-        {isCopied() ? "Copied!" : <AiOutlineCopy class={Styles.icon} />}
-      </button>
     </div>
   );
 };

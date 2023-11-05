@@ -6,9 +6,24 @@
   padding-right: 20px;
   justify-content: space-between;
   flex: 1;
+  position: relative;
+  .popup {
+    position: absolute;
+    top: -100%;
+    background: var(--status-success);
+    padding: 10px;
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    &.visible {
+      opacity: 1;
+    }
+  }
   .link {
     word-break: normal;
     line-break: normal;
+    cursor: pointer;
     .block {
       display: inline-block;
     }
